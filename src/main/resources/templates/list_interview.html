@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список опросов</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="0" height="32" class="me-2 mt-4" ><h3>Список опросов</h3></svg>
+    </a>
+
+    <div class="form-group blu-margin">
+        <form th:action="@{/tool}" th:method="get" th:object="${sortingType}">
+            <select th:value="${sorter.sortingType}" name="sortingType">
+                <option disabled selected="selected">
+                    <p th:text="${sorter.sortingType}"></p>
+                </option>
+                <option>Без сортировки</option>
+                <option>Имя (по возрастанию)</option>
+                <option>Имя (по убыванию)</option>
+                <option>Дата начала (по возрастанию)</option>
+                <option>Дата начала (по убыванию)</option>
+            </select>
+            <button class="btn btn-dark btn-sm" type="submit">Сортировать</button>
+        </form>
+        <form th:action="@{/tool}" th:method="get" th:object="${filter}">
+            <div class="mt-2">
+                <label>Фильтр</label><br>
+                <input type="text" class="form-check-label" placeholder="Поиск по имени"
+                       th:field="*{criterionName}" aria-describedby="basic-addon2">
+
+                <input type="datetime-local" th:field="*{criterionDate}" class="form-check-label"
+                       aria-describedby="basic-addon2">
+
+                <label>Активность</label>
+                <select class="form-check-label" th:value="${filter.criterionActivity}" name="criterionActivity">
+                    <option disabled selected="selected"><p th:text="${filter.criterionActivity}"></p></option>
+                    <option>Все</option>
+                    <option>Да</option>
+                    <option>Нет</option>
+                </select>
+                <button class="btn btn-dark btn-sm" type="submit">Найти</button>
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Дата начала</th>
+            <th scope="col">Дата окончания</th>
+            <th scope="col">Активность</th>
+            <th scope="col">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.nameInterview}">Какой-то опрос</td>
+            <td th:text="${item.startDate}">01.01.2000</td>
+            <td th:text="${item.finishDate}">01.01.2000</td>
+            <td th:text="${item.activity}">Да/Нет</td>
+            <td>
+                <a th:href="'/' + ${item.id} + '/question'" class="btn btn-outline-success">Подробнее</a>
+            </td>
+        </tr>
+        <form method="post" th:object="${item}">
+            <tr>
+                <td>
+                    <input type="text"  th:field="*{nameInterview}" class="form-control"
+                           placeholder="Новый опрос" aria-label="Новый опрос" aria-describedby="basic-addon2">
+                </td>
+                <td>
+                    <input type="datetime-local"  th:field="*{startDate}" class="form-control"
+                           aria-describedby="basic-addon2">
+                </td>
+                <td>
+                    <input type="datetime-local"  th:field="*{finishDate}" class="form-control"
+                           aria-describedby="basic-addon2">
+                </td>
+                <td class="align-middle">
+                    <select th:value="${item.activity}" name="activity">
+                        <option>Да</option>
+                        <option>Нет</option>
+                    </select>
+                </td>
+                <td>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="submit">Добавить</button>
+                    </div>
+                </td>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
