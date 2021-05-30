@@ -1,5 +1,6 @@
 ## Overview
 The service is designed to create and manage polls.
+Service address - http://localhost:8080/
 
 ## Before starting
 1. Create a database "interview_service" in PostgreSQL DBMS;
