@@ -10,7 +10,6 @@ import ru.interviewservice.model.tool.Filter;
 import ru.interviewservice.model.tool.Sorter;
 import ru.interviewservice.repository.InterviewRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
