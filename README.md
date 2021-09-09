@@ -1,4 +1,7 @@
 ## Overview
+
+[![Build Status](https://app.travis-ci.com/Volod878/interviewservice.svg?branch=master)](https://app.travis-ci.com/Volod878/interviewservice)
+
 The service is designed to create and manage polls.
 Service address - http://localhost:8080/
 
